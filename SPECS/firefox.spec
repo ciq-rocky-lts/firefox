@@ -132,7 +132,7 @@ end}
 
 Summary:              Mozilla Firefox Web browser
 Name:                 firefox
-Version:              115.9.1
+Version:              115.10.0
 Release:              1%{?dist}
 URL:                  https://www.mozilla.org/firefox/
 License:              MPLv1.1 or GPLv2+ or LGPLv2+
@@ -163,7 +163,7 @@ ExcludeArch:          aarch64 s390 ppc
 # Link to original tarball: https://archive.mozilla.org/pub/firefox/releases/%%{version}%%{?pre_version}/source/firefox-%%{version}%%{?pre_version}.source.tar.xz
 Source0:              firefox-%{version}%{?pre_version}%{?buildnum}.processed-source.tar.xz
 %if %{with langpacks}
-Source1:              firefox-langpacks-%{version}%{?pre_version}-20240322.tar.xz
+Source1:              firefox-langpacks-%{version}%{?pre_version}-20240409.tar.xz
 %endif
 Source2:              cbindgen-vendor.tar.xz
 Source3:              process-official-tarball
@@ -237,7 +237,6 @@ Patch201:             firefox-tests-xpcshell-freeze.patch
 
 # ---- Security patches ----
 Patch301:             CVE-2023-44488-libvpx.patch
-Patch302:             expat-CVE-2023-52425.patch
 
 # BUILD REQURES/REQUIRES
 %if %{?system_nss} && !0%{?bundle_nss}
@@ -1048,7 +1047,6 @@ echo "--------------------------------------------"
 cd media/libvpx/libvpx
 %patch -P301 -p1 -b .CVE-2023-44488-libvpx
 cd -
-%patch -P302 -p1 -b .expat-CVE-2023-52425
 
 %{__rm} -f .mozconfig
 %{__cp} %{SOURCE10} .mozconfig
@@ -1742,9 +1740,15 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 #---------------------------------------------------------------------
 
 %changelog
-* Tue Mar 26 2024 Release Engineering <releng@rockylinux.org> - 115.9.1-1
+* Thu Apr 18 2024 Release Engineering <releng@rockylinux.org> - 115.10.0-1
 - Add debranding patches (Mustafa Gezen)
 - Add Rocky Linux default preferences (Louis Abel)
+
+* Tue Apr 09 2024 Eike Rathke <erack@redhat.com> - 115.10.0-1
+- Update to 115.10.0 build1
+
+* Tue Apr 09 2024 Jan Horak <jhorak@redhat.com> - 115.9.1-2
+- Removed expat CVE fix
 
 * Fri Mar 22 2024 Eike Rathke <erack@redhat.com> - 115.9.1-1
 - Update to 115.9.1
